@@ -1,0 +1,5 @@
+python=2.7.14
+isbnlib==3.8.3
+pymarc==3.1.7
+xmltodict==0.11.0
+requests==2.18.4
