@@ -3,7 +3,6 @@ import sys
 import re
 
 import requests
-import urllib2
 import isbnlib
 import pymarc
 import xmltodict
@@ -31,12 +30,12 @@ def get_bib(identifier,identifier_type,search_key):
 
     #actual request
     try:
-        r = requests.get(request_url)
+        r = requests.get(request_url,timeout=5)
         response_body = r.text
 
-    except ConnectionError as e:
+    except ReadTimeoutError as e:
         response_body = e.text
-        print response_body
+        print(response_body)
 
     return response_body
 

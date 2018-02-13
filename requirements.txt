@@ -1,4 +1,4 @@
-python=2.7.14
+python==3.6.0
 isbnlib==3.8.3
 pymarc==3.1.7
 xmltodict==0.11.0

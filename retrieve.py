@@ -2,7 +2,7 @@ import os
 import sys
 import re
 
-import urllib2
+import requests
 import isbnlib
 import pymarc
 import xmltodict
@@ -28,12 +28,15 @@ brief_list = []
 retrieved_list = []
 
 #write the full output from the Worldcat endpoint to an xml file
-full_xml = open('output/' + file_name + '_full.xml','w')
+full_xml = open('output/' + file_name + '_full.xml','wb')
 
 #iterate through each identifier and retrieve a record from the API
 for b in bibs:
 
 	print(b)
+	#check for empty lines
+	if len(b) == 0:
+		continue
 
 	#determine if it is an ISBN13,10, or UPC
 	if isbnlib.is_isbn13(b):
@@ -46,7 +49,7 @@ for b in bibs:
 	#call the function that actually retrieves the bibs	
 	rec = get_bib(b, id_type, search_key)
 
-	print rec
+	#print(rec)
 
 	#as long as a response is returned
 	if rec:
@@ -60,7 +63,7 @@ for b in bibs:
 			missing_list.append(b)
 		else:
 			#write the output to a temporary xml file
-			retrieved = open('retrieved.xml','w')
+			retrieved = open('retrieved.xml','wb')
 			retrieved.write(rec)
 			retrieved.close()
 
